@@ -1,5 +1,5 @@
 {
-  "tests-count": 20,
+  "tests-count": 10,
   "libraries": [
     {
       "name": "jdbc"
@@ -12,6 +12,9 @@
     },
     {
       "name": "spring-data-jpa"
+    },
+    {
+      "name": "my-batis"
     }
   ]
 }

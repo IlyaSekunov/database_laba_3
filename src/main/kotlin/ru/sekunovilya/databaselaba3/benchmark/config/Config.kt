@@ -41,4 +41,4 @@ data object MyBatis : Library {
     override val name: String = "my-batis"
 }
 
-val knownLibraries = listOf(Jdbc, JdbcTemplate, Hibernate, SpringDataJpa, MyBatis)
+val knownLibraries = listOf(Jdbc.name, JdbcTemplate.name, Hibernate.name, SpringDataJpa.name, MyBatis.name)

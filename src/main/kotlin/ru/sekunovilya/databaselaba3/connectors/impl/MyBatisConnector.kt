@@ -10,10 +10,22 @@ import ru.sekunovilya.databaselaba3.connectors.QueryType
 class MyBatisConnector(val myBatis: MyBatisRepository) : DatabaseConnector {
     override fun query(query: QueryType) =
         when (query) {
-            QueryType.FIRST -> myBatis.query1()
-            QueryType.SECOND -> myBatis.query2()
-            QueryType.THIRD -> myBatis.query3()
-            QueryType.FOURTH -> myBatis.query4()
+            QueryType.FIRST -> {
+                myBatis.query1()
+                Unit
+            }
+            QueryType.SECOND -> {
+                myBatis.query2()
+                Unit
+            }
+            QueryType.THIRD -> {
+                myBatis.query3()
+                Unit
+            }
+            QueryType.FOURTH -> {
+                myBatis.query4()
+                Unit
+            }
         }
 
     override fun toLibrary() = MyBatis
@@ -22,38 +34,38 @@ class MyBatisConnector(val myBatis: MyBatisRepository) : DatabaseConnector {
 interface MyBatisRepository {
     @Select(
         """
-        SELECT cab_type, count(*) 
-        FROM trips 
+        SELECT VendorID, count(*) 
+        FROM taxi 
         GROUP BY 1
         """
     )
-    fun query1()
+    fun query1(): List<Any>
 
     @Select(
         """
         SELECT passenger_count, avg(total_amount) 
-        FROM trips 
+        FROM taxi 
         GROUP BY 1
         """
     )
-    fun query2()
+    fun query2(): List<Any>
 
     @Select(
         """
-        SELECT passenger_count, extract(year from pickup_datetime), count(*) 
-        FROM trips 
+        SELECT passenger_count, extract(year from tpep_pickup_datetime), count(*) 
+        FROM taxi
         GROUP BY 1, 2
         """
     )
-    fun query3()
+    fun query3(): List<Any>
 
     @Select(
         """
-        SELECT passenger_count, extract(year from pickup_datetime), round(trip_distance), count(*) 
-        FROM trips 
+        SELECT passenger_count, extract(year from tpep_pickup_datetime), round(trip_distance), count(*) 
+        FROM taxi
         GROUP BY 1, 2, 3 
         ORDER BY 2, 4 desc
         """
     )
-    fun query4()
+    fun query4(): List<Any>
 }

@@ -12,51 +12,67 @@ import ru.sekunovilya.databaselaba3.model.Table
 class SpringDataJpaConnector(val repository: SpringDataJpaRepository) : DatabaseConnector {
     override fun query(query: QueryType) =
         when (query) {
-            QueryType.FIRST -> repository.query1()
-            QueryType.SECOND -> repository.query2()
-            QueryType.THIRD -> repository.query3()
-            QueryType.FOURTH -> repository.query4()
+            QueryType.FIRST -> {
+                repository.query1()
+                Unit
+            }
+            QueryType.SECOND -> {
+                repository.query2()
+                Unit
+            }
+            QueryType.THIRD -> {
+                repository.query3()
+                Unit
+            }
+            QueryType.FOURTH -> {
+                repository.query4()
+                Unit
+            }
         }
 
     override fun toLibrary() = SpringDataJpa
 }
 
 @Repository
-interface SpringDataJpaRepository : JpaRepository<Long, Table> {
+interface SpringDataJpaRepository : JpaRepository<Table, Long> {
     @Query(
         """
-        SELECT cab_type, count(*) 
-        FROM trips 
+        SELECT VendorID, count(*) 
+        FROM taxi 
         GROUP BY 1
-        """
+        """,
+        nativeQuery = true
     )
-    fun query1()
+    fun query1(): List<Any>
 
     @Query(
         """
         SELECT passenger_count, avg(total_amount) 
-        FROM trips 
+        FROM taxi 
         GROUP BY 1
-        """
+        """,
+        nativeQuery = true
     )
-    fun query2()
+    fun query2(): List<Any>
 
     @Query(
         """
-        SELECT passenger_count, extract(year from pickup_datetime), count(*) 
-        FROM trips 
+        SELECT passenger_count, extract(year from tpep_pickup_datetime), count(*) 
+        FROM taxi 
         GROUP BY 1, 2
-        """
+        """,
+        nativeQuery = true
     )
-    fun query3()
+    fun query3(): List<Any>
 
     @Query(
         """
-        SELECT passenger_count, extract(year from pickup_datetime), round(trip_distance), count(*) 
-        FROM trips 
+        SELECT passenger_count, extract(year from tpep_pickup_datetime), round(trip_distance), count(*) 
+        FROM taxi
         GROUP BY 1, 2, 3 
         ORDER BY 2, 4 desc
-        """
+        """,
+        nativeQuery = true
     )
-    fun query4()
+    fun query4(): List<Any>
 }

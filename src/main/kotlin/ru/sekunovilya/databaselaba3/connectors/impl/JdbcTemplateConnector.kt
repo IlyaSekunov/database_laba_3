@@ -10,25 +10,37 @@ class JdbcTemplateConnector(private val jdbcTemplate: JdbcTemplate) : DatabaseCo
     override fun query(query: QueryType) =
         when (query) {
             QueryType.FIRST -> {
-                val sql = "SELECT cab_type, count(*) FROM trips GROUP BY 1"
-                //jdbcTemplate.query(sql, )
+                val sql = "SELECT VendorID, count(*) FROM taxi GROUP BY 1"
+                jdbcTemplate.query(sql) { rs, rowNum ->
+                    Any()
+                }
+                Unit
             }
 
             QueryType.SECOND -> {
-                val sql = "SELECT passenger_count, avg(total_amount) FROM trips GROUP BY 1"
-                //jdbcTemplate.query(sql, )
+                val sql = "SELECT passenger_count, avg(total_amount) FROM taxi GROUP BY 1"
+                jdbcTemplate.query(sql) { rs, rowNum ->
+                    Any()
+                }
+                Unit
             }
 
             QueryType.THIRD -> {
                 val sql =
-                    "SELECT passenger_count, extract(year from pickup_datetime), count(*) FROM trips GROUP BY 1, 2"
-                //jdbcTemplate.query(sql, )
+                    "SELECT passenger_count, extract(year from tpep_pickup_datetime), count(*) FROM taxi GROUP BY 1, 2"
+                jdbcTemplate.query(sql) { rs, rowNum ->
+                    Any()
+                }
+                Unit
             }
 
             QueryType.FOURTH -> {
                 val sql =
-                    "SELECT passenger_count, extract(year from pickup_datetime), round(trip_distance), count(*) FROM trips GROUP BY 1, 2, 3 ORDER BY 2, 4 desc"
-                //jdbcTemplate.query(sql, )
+                    "SELECT passenger_count, extract(year from tpep_pickup_datetime), round(trip_distance), count(*) FROM taxi GROUP BY 1, 2, 3 ORDER BY 2, 4 desc"
+                jdbcTemplate.query(sql) { rs, rowNum ->
+                    Any()
+                }
+                Unit
             }
         }
 

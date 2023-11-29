@@ -11,14 +11,14 @@ class JdbcConnector(private val connection: Connection) : DatabaseConnector {
     override fun query(query: QueryType) =
         when (query) {
             QueryType.FIRST -> {
-                val sql = "SELECT cab_type, count(*) FROM trips GROUP BY 1"
+                val sql = "SELECT VendorID, count(*) FROM taxi GROUP BY 1"
                 val statement = connection.createStatement()
                 val resultSet = statement.executeQuery(sql)
                 statement.close()
             }
 
             QueryType.SECOND -> {
-                val sql = "SELECT passenger_count, avg(total_amount) FROM trips GROUP BY 1"
+                val sql = "SELECT passenger_count, avg(total_amount) FROM taxi GROUP BY 1"
                 val statement = connection.createStatement()
                 val resultSet = statement.executeQuery(sql)
                 statement.close()
@@ -26,7 +26,7 @@ class JdbcConnector(private val connection: Connection) : DatabaseConnector {
 
             QueryType.THIRD -> {
                 val sql =
-                    "SELECT passenger_count, extract(year from pickup_datetime), count(*) FROM trips GROUP BY 1, 2"
+                    "SELECT passenger_count, extract(year from tpep_pickup_datetime), count(*) FROM taxi GROUP BY 1, 2"
                 val statement = connection.createStatement()
                 val resultSet = statement.executeQuery(sql)
                 statement.close()
@@ -34,7 +34,7 @@ class JdbcConnector(private val connection: Connection) : DatabaseConnector {
 
             QueryType.FOURTH -> {
                 val sql =
-                    "SELECT passenger_count, extract(year from pickup_datetime), round(trip_distance), count(*) FROM trips GROUP BY 1, 2, 3 ORDER BY 2, 4 desc"
+                    "SELECT passenger_count, extract(year from tpep_pickup_datetime), round(trip_distance), count(*) FROM taxi GROUP BY 1, 2, 3 ORDER BY 2, 4 desc"
                 val statement = connection.createStatement()
                 val resultSet = statement.executeQuery(sql)
                 statement.close()
