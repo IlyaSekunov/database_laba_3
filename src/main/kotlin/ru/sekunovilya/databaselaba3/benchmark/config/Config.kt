@@ -1,13 +1,26 @@
 package ru.sekunovilya.databaselaba3.benchmark.config
 
-interface Config {
-    val testsCount: Int
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonNames
+
+sealed interface Config {
+    val testCount: Int
     val libraries: List<Library>
 }
 
-interface Library {
+sealed interface Library {
     val name: String
 }
+
+@Serializable
+class JsonLibrary(override val name: String) : Library
+
+@Serializable
+class JsonConfig @OptIn(ExperimentalSerializationApi::class) constructor(
+    @JsonNames("tests-count") override val testCount: Int,
+    override val libraries: List<JsonLibrary>
+) : Config
 
 data object Jdbc : Library {
     override val name: String = "jdbc"
@@ -27,3 +40,5 @@ data object SpringDataJpa : Library {
 data object MyBatis : Library {
     override val name: String = "my-batis"
 }
+
+val knownLibraries = listOf(Jdbc, JdbcTemplate, Hibernate, SpringDataJpa, MyBatis)
