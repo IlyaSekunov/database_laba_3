@@ -1,0 +1,17 @@
+{
+  "tests-count": 20,
+  "libraries": [
+    {
+      "name": "jdbc"
+    },
+    {
+      "name": "jdbc-template"
+    },
+    {
+      "name": "hibernate"
+    },
+    {
+      "name": "spring-data-jpa"
+    }
+  ]
+}
