@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository
 import ru.sekunovilya.databaselaba3.benchmark.config.MyBatis
 import ru.sekunovilya.databaselaba3.connectors.DatabaseConnector
 import ru.sekunovilya.databaselaba3.connectors.QueryType
+import ru.sekunovilya.databaselaba3.model.FirstQuery
+import ru.sekunovilya.databaselaba3.model.FourthQuery
+import ru.sekunovilya.databaselaba3.model.SecondQuery
+import ru.sekunovilya.databaselaba3.model.ThirdQuery
 
 @Repository
 class MyBatisConnector(val myBatis: MyBatisRepository) : DatabaseConnector {
@@ -39,7 +43,7 @@ interface MyBatisRepository {
         GROUP BY 1
         """
     )
-    fun query1(): List<Any>
+    fun query1(): List<FirstQuery>
 
     @Select(
         """
@@ -48,7 +52,7 @@ interface MyBatisRepository {
         GROUP BY 1
         """
     )
-    fun query2(): List<Any>
+    fun query2(): List<SecondQuery>
 
     @Select(
         """
@@ -57,7 +61,7 @@ interface MyBatisRepository {
         GROUP BY 1, 2
         """
     )
-    fun query3(): List<Any>
+    fun query3(): List<ThirdQuery>
 
     @Select(
         """
@@ -67,5 +71,5 @@ interface MyBatisRepository {
         ORDER BY 2, 4 desc
         """
     )
-    fun query4(): List<Any>
+    fun query4(): List<FourthQuery>
 }

@@ -1,5 +1,6 @@
 package ru.sekunovilya.databaselaba3.connectors.impl
 
+import jakarta.persistence.EntityManager
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -9,23 +10,25 @@ import ru.sekunovilya.databaselaba3.connectors.QueryType
 import ru.sekunovilya.databaselaba3.model.Table
 
 @Repository
-class SpringDataJpaConnector(val repository: SpringDataJpaRepository) : DatabaseConnector {
+class SpringDataJpaConnector(
+    val entityManager: EntityManager
+) : DatabaseConnector {
     override fun query(query: QueryType) =
         when (query) {
             QueryType.FIRST -> {
-                repository.query1()
+                entityManager.createNamedQuery("firstQuery").resultList
                 Unit
             }
             QueryType.SECOND -> {
-                repository.query2()
+                entityManager.createNamedQuery("secondQuery").resultList
                 Unit
             }
             QueryType.THIRD -> {
-                repository.query3()
+                entityManager.createNamedQuery("thirdQuery").resultList
                 Unit
             }
             QueryType.FOURTH -> {
-                repository.query4()
+                entityManager.createNamedQuery("fourthQuery").resultList
                 Unit
             }
         }
@@ -33,6 +36,7 @@ class SpringDataJpaConnector(val repository: SpringDataJpaRepository) : Database
     override fun toLibrary() = SpringDataJpa
 }
 
+/*
 @Repository
 interface SpringDataJpaRepository : JpaRepository<Table, Long> {
     @Query(
@@ -75,4 +79,4 @@ interface SpringDataJpaRepository : JpaRepository<Table, Long> {
         nativeQuery = true
     )
     fun query4(): List<Any>
-}
+}*/
