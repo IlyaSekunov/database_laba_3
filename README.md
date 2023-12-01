@@ -15,13 +15,16 @@ git clone https://github.com/IlyaSekunov/database_laba_3.git
 ```
 
 2) Для работы бд понадобится docker image, который можно скачать по ссылке: https://hub.docker.com/repository/docker/ilyasekunov/preloaded_db/general
+```
+docker pull ilyasekunov/preloaded_db
+```
 
 3) Далее запускаем контейнер командой:
 ```
-docker container run -d -p 5433:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres --name db preloaded_db:latest
+docker container run -d -p 5433:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres --name db ilyasekunov/preloaded_db:latest
 ```
 
-4) Далее в корневой папке проекта запускаем приложение командой:
+1) Далее в корневой папке проекта запускаем приложение командой:
 ```
 ./gradlew bootRun
 ```
