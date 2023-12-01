@@ -2,12 +2,13 @@ package ru.sekunovilya.databaselaba3.connectors.impl
 
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
+import ru.sekunovilya.databaselaba3.benchmark.config.SpringJdbc
 import ru.sekunovilya.databaselaba3.connectors.DatabaseConnector
 import ru.sekunovilya.databaselaba3.connectors.QueryType
 import ru.sekunovilya.databaselaba3.model.*
 
 @Repository
-class JdbcTemplateConnector(private val jdbcTemplate: JdbcTemplate) : DatabaseConnector {
+class SpringJdbcConnector(private val jdbcTemplate: JdbcTemplate) : DatabaseConnector {
     override fun query(query: QueryType) =
         when (query) {
             QueryType.FIRST -> {
@@ -37,5 +38,5 @@ class JdbcTemplateConnector(private val jdbcTemplate: JdbcTemplate) : DatabaseCo
             }
         }
 
-    override fun toLibrary() = ru.sekunovilya.databaselaba3.benchmark.config.JdbcTemplate
+    override fun toLibrary() = SpringJdbc
 }

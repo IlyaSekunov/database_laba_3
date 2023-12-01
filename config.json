@@ -5,7 +5,7 @@
       "name": "jdbc"
     },
     {
-      "name": "jdbc-template"
+      "name": "spring-jdbc"
     },
     {
       "name": "hibernate"

@@ -26,8 +26,8 @@ data object Jdbc : Library {
     override val name: String = "jdbc"
 }
 
-data object JdbcTemplate : Library {
-    override val name: String = "jdbc-template"
+data object SpringJdbc : Library {
+    override val name: String = "spring-jdbc"
 }
 data object Hibernate : Library {
     override val name: String = "hibernate"
@@ -41,4 +41,4 @@ data object MyBatis : Library {
     override val name: String = "my-batis"
 }
 
-val knownLibraries = listOf(Jdbc.name, JdbcTemplate.name, Hibernate.name, SpringDataJpa.name, MyBatis.name)
+val knownLibraries = listOf(Jdbc.name, SpringJdbc.name, Hibernate.name, SpringDataJpa.name, MyBatis.name)

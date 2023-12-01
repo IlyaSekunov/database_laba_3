@@ -42,7 +42,7 @@ fun loadConfigFromJson(filePath: String) = JsonConfigLoader { ignoreUnknownKeys 
 fun databaseConnectorsFromConfig(config: Config, context: ApplicationContext) = config.libraries.map {
     when (it.name) {
         Jdbc.name -> context.getBean("jdbcConnector", DatabaseConnector::class.java)
-        JdbcTemplate.name -> context.getBean("jdbcTemplateConnector", DatabaseConnector::class.java)
+        SpringJdbc.name -> context.getBean("jdbcTemplateConnector", DatabaseConnector::class.java)
         Hibernate.name -> context.getBean("hibernateConnector", DatabaseConnector::class.java)
         SpringDataJpa.name -> context.getBean("springDataJpaConnector", DatabaseConnector::class.java)
         MyBatis.name -> context.getBean("myBatisConnector", DatabaseConnector::class.java)
