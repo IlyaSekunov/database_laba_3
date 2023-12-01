@@ -8,7 +8,7 @@ import ru.sekunovilya.databaselaba3.connectors.QueryType
 
 @Repository
 class SpringDataJpaConnector(
-    val entityManager: EntityManager
+    private val entityManager: EntityManager
 ) : DatabaseConnector {
     override fun query(query: QueryType) =
         when (query) {

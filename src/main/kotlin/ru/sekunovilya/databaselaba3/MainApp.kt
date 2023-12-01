@@ -1,6 +1,5 @@
 package ru.sekunovilya.databaselaba3
 
-import org.mybatis.spring.annotation.MapperScan
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.ApplicationContext
@@ -16,7 +15,6 @@ import ru.sekunovilya.databaselaba3.exceptions.UnknownLibraryException
 import java.io.File
 
 @SpringBootApplication
-//@MapperScan
 class MainApp
 
 fun main(args: Array<String>) {
@@ -42,7 +40,7 @@ fun loadConfigFromJson(filePath: String) = JsonConfigLoader { ignoreUnknownKeys 
 fun databaseConnectorsFromConfig(config: Config, context: ApplicationContext) = config.libraries.map {
     when (it.name) {
         Jdbc.name -> context.getBean("jdbcConnector", DatabaseConnector::class.java)
-        SpringJdbc.name -> context.getBean("jdbcTemplateConnector", DatabaseConnector::class.java)
+        SpringJdbc.name -> context.getBean("springJdbcConnector", DatabaseConnector::class.java)
         Hibernate.name -> context.getBean("hibernateConnector", DatabaseConnector::class.java)
         SpringDataJpa.name -> context.getBean("springDataJpaConnector", DatabaseConnector::class.java)
         MyBatis.name -> context.getBean("myBatisConnector", DatabaseConnector::class.java)
