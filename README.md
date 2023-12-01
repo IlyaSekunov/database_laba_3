@@ -26,7 +26,7 @@ docker container run -d -p 5433:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_U
 
 4) Далее в корневой папке проекта запускаем приложение командой:
 ```
-./gradlew bootRun
+gradlew bootRun
 ```
 
 Чтобы конфигурировать бенчмарк в папке с проектов должен быть файл <b>config.json</b>:
