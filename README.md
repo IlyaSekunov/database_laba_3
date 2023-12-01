@@ -24,7 +24,7 @@ docker pull ilyasekunov/preloaded_db
 docker container run -d -p 5433:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres --name db ilyasekunov/preloaded_db:latest
 ```
 
-1) Далее в корневой папке проекта запускаем приложение командой:
+4) Далее в корневой папке проекта запускаем приложение командой:
 ```
 ./gradlew bootRun
 ```
