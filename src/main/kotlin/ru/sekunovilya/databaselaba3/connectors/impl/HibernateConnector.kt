@@ -14,9 +14,10 @@ import ru.sekunovilya.databaselaba3.model.ThirdQuery
 import java.math.BigDecimal
 
 @Repository
-class HibernateConnector(private val entityManagerFactory: EntityManagerFactory) : DatabaseConnector {
+class HibernateConnector(entityManagerFactory: EntityManagerFactory) : DatabaseConnector {
+    private val sessionFactory = entityManagerFactory.unwrap(SessionFactory::class.java)
+
     override fun query(query: QueryType) {
-        val sessionFactory = entityManagerFactory.unwrap(SessionFactory::class.java)
         when (query) {
             QueryType.FIRST -> {
                 val sql = "SELECT VendorID, count(*) FROM taxi GROUP BY 1"
@@ -33,6 +34,7 @@ class HibernateConnector(private val entityManagerFactory: EntityManagerFactory)
                         .resultList
                 }
             }
+
             QueryType.SECOND -> {
                 val sql = "SELECT passenger_count, avg(total_amount) FROM taxi GROUP BY 1"
                 sessionFactory.inSession {
@@ -48,6 +50,7 @@ class HibernateConnector(private val entityManagerFactory: EntityManagerFactory)
                         .resultList
                 }
             }
+
             QueryType.THIRD -> {
                 val sql =
                     "SELECT passenger_count, extract(year from tpep_pickup_datetime), count(*) FROM taxi GROUP BY 1, 2"
@@ -65,6 +68,7 @@ class HibernateConnector(private val entityManagerFactory: EntityManagerFactory)
                         .resultList
                 }
             }
+
             QueryType.FOURTH -> {
                 val sql =
                     "SELECT passenger_count, extract(year from tpep_pickup_datetime), round(trip_distance), count(*) FROM taxi GROUP BY 1, 2, 3 ORDER BY 2, 4 desc"

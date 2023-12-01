@@ -16,7 +16,7 @@ import ru.sekunovilya.databaselaba3.exceptions.UnknownLibraryException
 import java.io.File
 
 @SpringBootApplication
-@MapperScan
+//@MapperScan
 class MainApp
 
 fun main(args: Array<String>) {
