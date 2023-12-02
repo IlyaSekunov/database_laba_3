@@ -19,17 +19,23 @@ fun testConnectors(connectors: List<DatabaseConnector>, testsCount: Int): List<C
     }
 }
 
-private fun produceQueryResults(testsCount: Int, connector: DatabaseConnector) = sequence {
-    fun averageQueryResult(query: QueryType) = sequence {
-        repeat(testsCount) {
-            yield(value = testQuery(query, connector))
-        }
-    }.average()
-
-    for (query in QueryType.entries) {
-        val queryResult = averageQueryResult(query)
-        yield(value = query to queryResult)
+private fun averageQueryResult(
+    query: QueryType,
+    testsCount: Int,
+    connector: DatabaseConnector
+) = sequence {
+    repeat(testsCount) {
+        yield(value = testQuery(query, connector))
     }
-}.toMap()
+}.average()
+
+private fun produceQueryResults(testsCount: Int, connector: DatabaseConnector): Map<QueryType, Double> {
+    val result = HashMap<QueryType, Double>()
+    return result.apply {
+        for (query in QueryType.entries) {
+            result[query] = averageQueryResult(query = query, testsCount = testsCount, connector = connector)
+        }
+    }
+}
 
 private fun testQuery(query: QueryType, connector: DatabaseConnector) = measureTimeMillis { connector.query(query) }

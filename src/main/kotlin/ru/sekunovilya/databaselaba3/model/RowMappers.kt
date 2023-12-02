@@ -9,9 +9,9 @@ fun firstQueryFromResultSet(rs: ResultSet) =
     )
 
 fun listFirstQueryFromResultSet(rs: ResultSet): List<FirstQuery> =
-    rs.let {
+    with(rs) {
         val result = ArrayList<FirstQuery>()
-        while (it.next()) {
+        while (next()) {
             result.add(
                 FirstQuery(
                     vendorId = rs.getBigDecimal(1),
@@ -29,9 +29,9 @@ fun secondQueryFromResultSet(rs: ResultSet) =
     )
 
 fun listSecondQueryFromResultSet(rs: ResultSet): List<SecondQuery> =
-    rs.let {
+    with(rs) {
         val result = ArrayList<SecondQuery>()
-        while (it.next()) {
+        while (next()) {
             result.add(
                 SecondQuery(
                     passengerCount = rs.getBigDecimal(1),
@@ -50,9 +50,9 @@ fun thirdQueryFromResultSet(rs: ResultSet) =
     )
 
 fun listThirdQueryFromResultSet(rs: ResultSet): List<ThirdQuery> =
-    rs.let {
+    with(rs) {
         val result = ArrayList<ThirdQuery>()
-        while (it.next()) {
+        while (next()) {
             result.add(
                 ThirdQuery(
                     passengerCount = rs.getBigDecimal(1),
@@ -73,9 +73,9 @@ fun fourthQueryFromResultSet(rs: ResultSet) =
     )
 
 fun listFourthQueryFromResultSet(rs: ResultSet) =
-    rs.let {
+    with(rs) {
         val result = ArrayList<FourthQuery>()
-        while (it.next()) {
+        while (next()) {
             result.add(
                 FourthQuery(
                     passengerCount = rs.getBigDecimal(1),
